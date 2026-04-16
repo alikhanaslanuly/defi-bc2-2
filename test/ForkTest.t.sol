@@ -25,7 +25,6 @@ interface IWETH {
 }
 
 contract ForkTest is Test {
-
     address constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
     address constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
     address constant UNI_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
@@ -33,7 +32,11 @@ contract ForkTest is Test {
     uint256 constant FORK_BLOCK = 19_000_000;
 
     function setUp() public {
-    vm.createSelectFork(vm.envOr("MAINNET_RPC_URL", string("https://mainnet.infura.io/v3/ce88022258c6419dab39c8483822bf97")), FORK_BLOCK);}
+        vm.createSelectFork(
+            vm.envOr("MAINNET_RPC_URL", string("https://mainnet.infura.io/v3/ce88022258c6419dab39c8483822bf97")),
+            FORK_BLOCK
+        );
+    }
 
     function test_USDCTotalSupply() public view {
         uint256 supply = IERC20Minimal(USDC).totalSupply();
@@ -43,7 +46,6 @@ contract ForkTest is Test {
 
         console.log("USDC Total Supply:", supply / 1e6, "USDC");
     }
-
 
     function test_UniswapV2SwapWETHForUSDC() public {
         address trader = makeAddr("trader");
@@ -65,13 +67,8 @@ contract ForkTest is Test {
         uint256 usdcBefore = IERC20Minimal(USDC).balanceOf(trader);
 
         vm.prank(trader);
-        uint256[] memory amounts = IUniswapV2Router(UNI_ROUTER).swapExactTokensForTokens(
-            wethAmount,
-            1,             
-            path,
-            trader,
-            block.timestamp + 1800 
-        );
+        uint256[] memory amounts =
+            IUniswapV2Router(UNI_ROUTER).swapExactTokensForTokens(wethAmount, 1, path, trader, block.timestamp + 1800);
 
         uint256 usdcAfter = IERC20Minimal(USDC).balanceOf(trader);
 
@@ -91,7 +88,6 @@ contract ForkTest is Test {
         console.log("Block before:", blockBefore);
         console.log("Block after:", block.number);
     }
-
 
     function test_ImpersonateWhaleTransfer() public {
         address whale = 0x47ac0Fb4F2D84898e4D9E7b4DaB3C24507a6D503;

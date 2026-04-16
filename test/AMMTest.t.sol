@@ -7,7 +7,6 @@ import "../src/tokens/TokenA.sol";
 import "../src/tokens/TokenB.sol";
 
 contract AMMTest is Test {
-
     AMM public amm;
     TokenA public tokenA;
     TokenB public tokenB;
@@ -22,12 +21,12 @@ contract AMMTest is Test {
     function setUp() public {
         owner = makeAddr("owner");
         alice = makeAddr("alice");
-        bob   = makeAddr("bob");
+        bob = makeAddr("bob");
 
         vm.startPrank(owner);
         tokenA = new TokenA(owner);
         tokenB = new TokenB(owner);
-        amm    = new AMM(address(tokenA), address(tokenB));
+        amm = new AMM(address(tokenA), address(tokenB));
         vm.stopPrank();
 
         vm.prank(owner);

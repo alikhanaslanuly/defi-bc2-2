@@ -5,7 +5,6 @@ import "forge-std/Test.sol";
 import "../src/tokens/TokenA.sol";
 
 contract ERC20Test is Test {
-
     TokenA public token;
 
     address public owner;
@@ -16,7 +15,7 @@ contract ERC20Test is Test {
     function setUp() public {
         owner = makeAddr("owner");
         alice = makeAddr("alice");
-        bob   = makeAddr("bob");
+        bob = makeAddr("bob");
         carol = makeAddr("carol");
 
         vm.prank(owner);
@@ -62,7 +61,7 @@ contract ERC20Test is Test {
     function test_RevertWhen_MintExceedsMaxSupply() public {
         vm.prank(owner);
         vm.expectRevert("Exceeds max supply");
-        token.mint(carol, 999_000 ether + 1); 
+        token.mint(carol, 999_000 ether + 1);
     }
 
     function test_Transfer() public {
@@ -84,7 +83,7 @@ contract ERC20Test is Test {
     function test_RevertWhen_TransferExceedsBalance() public {
         vm.prank(alice);
         vm.expectRevert();
-        token.transfer(carol, 9999 ether); 
+        token.transfer(carol, 9999 ether);
     }
 
     function test_TransferToSelf() public {
@@ -119,7 +118,7 @@ contract ERC20Test is Test {
 
         vm.prank(bob);
         vm.expectRevert();
-        token.transferFrom(alice, carol, 100 ether); 
+        token.transferFrom(alice, carol, 100 ether);
     }
 
     function test_RevertWhen_TransferFromWithoutApprove() public {
@@ -162,7 +161,7 @@ contract ERC20Test is Test {
 
     function invariant_NoBalanceExceedsTotalSupply() public view {
         assertLe(token.balanceOf(alice), token.totalSupply());
-        assertLe(token.balanceOf(bob),   token.totalSupply());
+        assertLe(token.balanceOf(bob), token.totalSupply());
         assertLe(token.balanceOf(carol), token.totalSupply());
         assertLe(token.balanceOf(owner), token.totalSupply());
     }

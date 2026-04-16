@@ -6,21 +6,20 @@ import "../src/LendingPool.sol";
 import "../src/tokens/TokenA.sol";
 
 contract LendingPoolTest is Test {
-
     LendingPool public pool;
-    TokenA      public usdc; 
+    TokenA public usdc;
 
     address public owner;
-    address public alice;  
-    address public bob;    
+    address public alice;
+    address public bob;
     address public liquidator;
 
     uint256 constant ETH_PRICE = 2000 ether;
 
     function setUp() public {
-        owner     = makeAddr("owner");
-        alice     = makeAddr("alice");
-        bob       = makeAddr("bob");
+        owner = makeAddr("owner");
+        alice = makeAddr("alice");
+        bob = makeAddr("bob");
         liquidator = makeAddr("liquidator");
 
         vm.startPrank(owner);
@@ -96,7 +95,7 @@ contract LendingPoolTest is Test {
         uint256 bobBalanceBefore = usdc.balanceOf(bob);
 
         vm.prank(bob);
-        pool.borrow(1_000 ether); 
+        pool.borrow(1_000 ether);
 
         assertEq(usdc.balanceOf(bob), bobBalanceBefore + 1_000 ether);
         assertEq(pool.totalBorrowed(), 1_000 ether);
@@ -106,11 +105,11 @@ contract LendingPoolTest is Test {
         _aliceDepositsToPool(10_000 ether);
 
         vm.prank(bob);
-        pool.depositCollateral{value: 1 ether}(); 
+        pool.depositCollateral{value: 1 ether}();
 
         vm.prank(bob);
         vm.expectRevert("Exceeds LTV limit");
-        pool.borrow(2_000 ether); 
+        pool.borrow(2_000 ether);
     }
 
     function test_RevertWhen_BorrowWithZeroCollateral() public {
@@ -160,12 +159,12 @@ contract LendingPoolTest is Test {
         _aliceDepositsToPool(10_000 ether);
 
         vm.prank(bob);
-        pool.depositCollateral{value: 2 ether}(); 
+        pool.depositCollateral{value: 2 ether}();
         vm.prank(bob);
-        pool.borrow(1_000 ether); 
+        pool.borrow(1_000 ether);
 
         uint256 hf = pool.getHealthFactor(bob);
-        assertGt(hf, 1 ether); 
+        assertGt(hf, 1 ether);
     }
 
     function test_LiquidationAfterPriceDrop() public {
@@ -240,6 +239,6 @@ contract LendingPoolTest is Test {
         view
         returns (uint256 collateral, uint256 borrowed, uint256 supplied)
     {
-        (collateral, borrowed, supplied, ) = pool.accounts(user);
+        (collateral, borrowed, supplied,) = pool.accounts(user);
     }
 }

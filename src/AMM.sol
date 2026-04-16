@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/utils/math/Math.sol";
 import "./tokens/LPToken.sol";
 
 contract AMM is ReentrancyGuard {
-
     IERC20 public immutable token0;
     IERC20 public immutable token1;
     LPToken public immutable lpToken;
@@ -20,26 +19,11 @@ contract AMM is ReentrancyGuard {
 
     uint256 public constant MINIMUM_LIQUIDITY = 1000;
 
-    event LiquidityAdded(
-        address indexed provider,
-        uint256 amount0,
-        uint256 amount1,
-        uint256 lpMinted
-    );
+    event LiquidityAdded(address indexed provider, uint256 amount0, uint256 amount1, uint256 lpMinted);
 
-    event LiquidityRemoved(
-        address indexed provider,
-        uint256 amount0,
-        uint256 amount1,
-        uint256 lpBurned
-    );
+    event LiquidityRemoved(address indexed provider, uint256 amount0, uint256 amount1, uint256 lpBurned);
 
-    event Swap(
-        address indexed trader,
-        address tokenIn,
-        uint256 amountIn,
-        uint256 amountOut
-    );
+    event Swap(address indexed trader, address tokenIn, uint256 amountIn, uint256 amountOut);
 
     constructor(address _token0, address _token1) {
         require(_token0 != address(0) && _token1 != address(0), "Zero address");
@@ -51,12 +35,11 @@ contract AMM is ReentrancyGuard {
         lpToken = new LPToken(address(this));
     }
 
-    function addLiquidity(
-        uint256 amount0Desired,
-        uint256 amount1Desired,
-        uint256 amount0Min,
-        uint256 amount1Min
-    ) external nonReentrant returns (uint256 lpMinted) {
+    function addLiquidity(uint256 amount0Desired, uint256 amount1Desired, uint256 amount0Min, uint256 amount1Min)
+        external
+        nonReentrant
+        returns (uint256 lpMinted)
+    {
         require(amount0Desired > 0 && amount1Desired > 0, "Amounts must be > 0");
 
         uint256 amount0;
@@ -89,10 +72,7 @@ contract AMM is ReentrancyGuard {
             lpMinted = Math.sqrt(amount0 * amount1) - MINIMUM_LIQUIDITY;
             lpToken.mint(address(0xdead), MINIMUM_LIQUIDITY);
         } else {
-            lpMinted = Math.min(
-                (amount0 * totalLPSupply) / reserve0,
-                (amount1 * totalLPSupply) / reserve1
-            );
+            lpMinted = Math.min((amount0 * totalLPSupply) / reserve0, (amount1 * totalLPSupply) / reserve1);
         }
 
         require(lpMinted > 0, "Insufficient liquidity minted");
@@ -104,11 +84,11 @@ contract AMM is ReentrancyGuard {
         emit LiquidityAdded(msg.sender, amount0, amount1, lpMinted);
     }
 
-    function removeLiquidity(
-        uint256 lpAmount,
-        uint256 amount0Min,
-        uint256 amount1Min
-    ) external nonReentrant returns (uint256 amount0, uint256 amount1) {
+    function removeLiquidity(uint256 lpAmount, uint256 amount0Min, uint256 amount1Min)
+        external
+        nonReentrant
+        returns (uint256 amount0, uint256 amount1)
+    {
         require(lpAmount > 0, "LP amount must be > 0");
 
         uint256 totalLPSupply = lpToken.totalSupply();
@@ -132,21 +112,18 @@ contract AMM is ReentrancyGuard {
         emit LiquidityRemoved(msg.sender, amount0, amount1, lpAmount);
     }
 
-    function swap(
-        address tokenIn,
-        uint256 amountIn,
-        uint256 amountOutMin
-    ) external nonReentrant returns (uint256 amountOut) {
-        require(
-            tokenIn == address(token0) || tokenIn == address(token1),
-            "Invalid input token"
-        );
+    function swap(address tokenIn, uint256 amountIn, uint256 amountOutMin)
+        external
+        nonReentrant
+        returns (uint256 amountOut)
+    {
+        require(tokenIn == address(token0) || tokenIn == address(token1), "Invalid input token");
         require(amountIn > 0, "Amount must be > 0");
         require(reserve0 > 0 && reserve1 > 0, "No liquidity");
 
         bool isToken0In = tokenIn == address(token0);
 
-        uint256 reserveIn  = isToken0In ? reserve0 : reserve1;
+        uint256 reserveIn = isToken0In ? reserve0 : reserve1;
         uint256 reserveOut = isToken0In ? reserve1 : reserve0;
 
         amountOut = getAmountOut(amountIn, reserveIn, reserveOut);
@@ -166,17 +143,17 @@ contract AMM is ReentrancyGuard {
         emit Swap(msg.sender, tokenIn, amountIn, amountOut);
     }
 
-    function getAmountOut(
-        uint256 amountIn,
-        uint256 reserveIn,
-        uint256 reserveOut
-    ) public pure returns (uint256 amountOut) {
+    function getAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut)
+        public
+        pure
+        returns (uint256 amountOut)
+    {
         require(amountIn > 0, "amountIn must be > 0");
         require(reserveIn > 0 && reserveOut > 0, "Reserves must be > 0");
 
         uint256 amountInWithFee = amountIn * (FEE_DENOMINATOR - FEE_NUMERATOR);
 
-        uint256 numerator   = reserveOut * amountInWithFee;
+        uint256 numerator = reserveOut * amountInWithFee;
         uint256 denominator = (reserveIn * FEE_DENOMINATOR) + amountInWithFee;
 
         amountOut = numerator / denominator;

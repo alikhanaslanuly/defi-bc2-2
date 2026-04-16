@@ -8,7 +8,6 @@ import "../src/AMM.sol";
 import "../src/LendingPool.sol";
 
 contract Deploy is Script {
-
     function run() external {
         uint256 deployerKey = vm.envUint("PRIVATE_KEY");
         address deployer = vm.addr(deployerKey);

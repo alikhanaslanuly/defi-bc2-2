@@ -5,33 +5,31 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 contract LendingPool is ReentrancyGuard {
-
     IERC20 public immutable borrowToken;
 
     address public owner;
 
-    uint256 public constant LTV = 75e16; 
+    uint256 public constant LTV = 75e16;
     uint256 public constant LIQUIDATION_THRESHOLD = 80e16;
-    uint256 public constant LIQUIDATION_BONUS = 5e16;  
-    uint256 public constant CLOSE_FACTOR = 50e16; 
-    uint256 public constant BASE_RATE = 2e16;  
+    uint256 public constant LIQUIDATION_BONUS = 5e16;
+    uint256 public constant CLOSE_FACTOR = 50e16;
+    uint256 public constant BASE_RATE = 2e16;
     uint256 public constant SLOPE = 20e16;
     uint256 public constant WAD = 1e18;
     uint256 public constant SECONDS_IN_YEAR = 365 days;
 
-    uint256 public totalSupplied;  
-    uint256 public totalBorrowed;  
+    uint256 public totalSupplied;
+    uint256 public totalBorrowed;
     uint256 public lastUpdateTimestamp;
-    uint256 public accruedInterestIndex; 
+    uint256 public accruedInterestIndex;
 
     uint256 public ethPriceUSD;
 
-
     struct UserAccount {
         uint256 collateralETH;
-        uint256 borrowed;     
-        uint256 supplied;      
-        uint256 borrowIndex;   
+        uint256 borrowed;
+        uint256 supplied;
+        uint256 borrowIndex;
     }
 
     mapping(address => UserAccount) public accounts;
@@ -43,10 +41,7 @@ contract LendingPool is ReentrancyGuard {
     event Borrow(address indexed user, uint256 amount);
     event Repay(address indexed user, uint256 amount);
     event Liquidated(
-        address indexed borrower,
-        address indexed liquidator,
-        uint256 debtRepaid,
-        uint256 collateralSeized
+        address indexed borrower, address indexed liquidator, uint256 debtRepaid, uint256 collateralSeized
     );
     event PriceUpdated(uint256 newPrice);
 
@@ -63,7 +58,7 @@ contract LendingPool is ReentrancyGuard {
         owner = msg.sender;
         ethPriceUSD = _initialEthPrice;
         lastUpdateTimestamp = block.timestamp;
-        accruedInterestIndex = WAD; 
+        accruedInterestIndex = WAD;
     }
 
     function setEthPrice(uint256 newPrice) external onlyOwner {
@@ -182,8 +177,7 @@ contract LendingPool is ReentrancyGuard {
         uint256 maxRepay = (currentDebt * CLOSE_FACTOR) / WAD;
         require(debtToRepay > 0 && debtToRepay <= maxRepay, "Invalid repay amount");
 
-        uint256 collateralToSeize = (debtToRepay * WAD * (WAD + LIQUIDATION_BONUS))
-            / (ethPriceUSD * WAD);
+        uint256 collateralToSeize = (debtToRepay * WAD * (WAD + LIQUIDATION_BONUS)) / (ethPriceUSD * WAD);
 
         require(collateralToSeize <= user.collateralETH, "Not enough collateral");
         require(collateralToSeize > 0, "Zero collateral to seize");
@@ -227,15 +221,15 @@ contract LendingPool is ReentrancyGuard {
         uint256 borrowRate = getBorrowRate();
         uint256 interestFactor = (borrowRate * timeElapsed) / SECONDS_IN_YEAR;
         return accruedInterestIndex + (accruedInterestIndex * interestFactor) / WAD;
-}
+    }
 
     function getCurrentDebt(address user) public view returns (uint256) {
         UserAccount memory u = accounts[user];
         if (u.borrowed == 0) return 0;
-        
+
         uint256 currentIndex = _calculateCurrentIndex(); // Берем актуальный индекс
         return (u.borrowed * currentIndex) / u.borrowIndex;
-}
+    }
 
     function getBorrowRate() public view returns (uint256) {
         if (totalSupplied == 0) return BASE_RATE;
