@@ -33,9 +33,8 @@ contract ForkTest is Test {
     uint256 constant FORK_BLOCK = 19_000_000;
 
     function setUp() public {
-        vm.createSelectFork(vm.envOr("MAINNET_RPC_URL", string("mainnet")), FORK_BLOCK);
-    }
-
+    vm.createSelectFork("mainnet", FORK_BLOCK);
+}
 
     function test_USDCTotalSupply() public view {
         uint256 supply = IERC20Minimal(USDC).totalSupply();
@@ -87,7 +86,6 @@ contract ForkTest is Test {
         uint256 blockBefore = block.number;
         assertEq(blockBefore, FORK_BLOCK);
 
-        // Переключаемся на следующий блок
         vm.rollFork(FORK_BLOCK + 100);
         assertEq(block.number, FORK_BLOCK + 100);
 
