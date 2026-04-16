@@ -35,6 +35,8 @@ jobs:
 
       - name: Build contracts
         run: forge build --sizes
+        env:
+          MAINNET_RPC_URL: ${{ secrets.MAINNET_RPC_URL }}
 
       - name: Run tests
         run: forge test -vvv
@@ -43,9 +45,13 @@ jobs:
 
       - name: Check coverage
         run: forge coverage --report summary
+        env:
+          MAINNET_RPC_URL: ${{ secrets.MAINNET_RPC_URL }}
 
       - name: Gas report
         run: forge test --gas-report
+        env:
+          MAINNET_RPC_URL: ${{ secrets.MAINNET_RPC_URL }}
 
       - name: Run Slither
         uses: crytic/slither-action@v0.3.0
@@ -56,3 +62,5 @@ jobs:
 
       - name: Check formatting
         run: forge fmt --check
+        env:
+          MAINNET_RPC_URL: ${{ secrets.MAINNET_RPC_URL }}
