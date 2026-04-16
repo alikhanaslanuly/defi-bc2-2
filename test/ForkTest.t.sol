@@ -33,8 +33,7 @@ contract ForkTest is Test {
     uint256 constant FORK_BLOCK = 19_000_000;
 
     function setUp() public {
-    vm.createSelectFork("mainnet", FORK_BLOCK);
-}
+    vm.createSelectFork(vm.envOr("MAINNET_RPC_URL", string("https://mainnet.infura.io/v3/ce88022258c6419dab39c8483822bf97")), FORK_BLOCK);}
 
     function test_USDCTotalSupply() public view {
         uint256 supply = IERC20Minimal(USDC).totalSupply();
