@@ -1,0 +1,118 @@
+No files changed, compilation skipped
+
+Ran 15 tests for test/LendingPoolTest.t.sol:LendingPoolTest
+[PASS] test_BorrowWithinLTV() (gas: 241420)
+[PASS] test_DepositCollateral() (gas: 53418)
+[PASS] test_DepositTokens() (gas: 111642)
+[PASS] test_HealthFactorAboveOne_WhenSafe() (gas: 243629)
+[PASS] test_InterestAccruesOverTime() (gas: 246205)
+[PASS] test_LiquidationAfterPriceDrop() (gas: 315733)
+[PASS] test_RepayFull() (gas: 244207)
+[PASS] test_RepayPartial() (gas: 257972)
+[PASS] test_RevertWhen_BorrowExceedsLTV() (gas: 214210)
+[PASS] test_RevertWhen_BorrowWithZeroCollateral() (gas: 183807)
+[PASS] test_RevertWhen_DepositZeroCollateral() (gas: 16113)
+[PASS] test_RevertWhen_LiquidateHealthyPosition() (gas: 275985)
+[PASS] test_RevertWhen_WithdrawMoreThanDeposited() (gas: 108206)
+[PASS] test_UtilizationRateUpdatesOnBorrow() (gas: 240714)
+[PASS] test_WithdrawTokens() (gas: 116464)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 3.38ms (9.59ms CPU time)
+
+Ran 2 tests for test/Counter.t.sol:CounterTest
+[PASS] testFuzz_SetNumber(uint256) (runs: 1000, μ: 28056, ~: 28435)
+[PASS] test_Increment() (gas: 28448)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 48.92ms (48.59ms CPU time)
+
+Ran 20 tests for test/ERC20Test.t.sol:ERC20Test
+[PASS] invariant_NoBalanceExceedsTotalSupply() (runs: 256, calls: 3840, reverts: 3227)
+
+╭----------+-------------------+-------+---------+----------╮
+| Contract | Selector          | Calls | Reverts | Discards |
++===========================================================+
+| TokenA   | approve           | 595   | 0       | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | mint              | 642   | 642     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | renounceOwnership | 644   | 644     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transfer          | 671   | 662     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferFrom      | 652   | 643     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferOwnership | 636   | 636     | 0        |
+╰----------+-------------------+-------+---------+----------╯
+
+[PASS] invariant_TotalSupplyUnchangedByTransfer() (runs: 256, calls: 3840, reverts: 3162)
+
+╭----------+-------------------+-------+---------+----------╮
+| Contract | Selector          | Calls | Reverts | Discards |
++===========================================================+
+| TokenA   | approve           | 661   | 0       | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | mint              | 603   | 603     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | renounceOwnership | 663   | 663     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transfer          | 676   | 668     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferFrom      | 646   | 637     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferOwnership | 591   | 591     | 0        |
+╰----------+-------------------+-------+---------+----------╯
+
+[PASS] testFuzz_Transfer(uint256) (runs: 1000, μ: 48800, ~: 48681)
+[PASS] test_Approve() (gas: 38724)
+[PASS] test_ApproveOverwritesPrevious() (gas: 42692)
+[PASS] test_Decimals() (gas: 5616)
+[PASS] test_InitialSupply() (gas: 7681)
+[PASS] test_MintByOwner() (gas: 47680)
+[PASS] test_Name() (gas: 12449)
+[PASS] test_RevertWhen_MintByNonOwner() (gas: 13435)
+[PASS] test_RevertWhen_MintExceedsMaxSupply() (gas: 17708)
+[PASS] test_RevertWhen_TransferExceedsBalance() (gas: 15643)
+[PASS] test_RevertWhen_TransferFromExceedsAllowance() (gas: 41769)
+[PASS] test_RevertWhen_TransferFromWithoutApprove() (gas: 17833)
+[PASS] test_Symbol() (gas: 12448)
+[PASS] test_Transfer() (gas: 44806)
+[PASS] test_TransferEmitsEvent() (gas: 44850)
+[PASS] test_TransferFrom() (gas: 75208)
+[PASS] test_TransferToSelf() (gas: 18086)
+[PASS] test_TransferZeroAmount() (gas: 22017)
+Suite result: ok. 20 passed; 0 failed; 0 skipped; finished in 243.95ms (562.36ms CPU time)
+
+Ran 15 tests for test/AMMTest.t.sol:AMMTest
+[PASS] testFuzz_SwapNeverDecreasesK(uint256) (runs: 1000, μ: 423207, ~: 423276)
+[PASS] test_AddInitialLiquidity() (gas: 223286)
+[PASS] test_AddSubsequentLiquidity() (gas: 294888)
+[PASS] test_GetAmountOut_CorrectFormula() (gas: 6266)
+[PASS] test_PriceAfterSwapChanges() (gas: 255616)
+[PASS] test_RemoveLiquidityFull() (gas: 247811)
+[PASS] test_RemoveLiquidityPartial() (gas: 269822)
+[PASS] test_RevertWhen_AddLiquidityZeroAmount() (gas: 77520)
+[PASS] test_RevertWhen_RemoveLiquiditySlippage() (gas: 255226)
+[PASS] test_RevertWhen_SwapInvalidToken() (gas: 226665)
+[PASS] test_RevertWhen_SwapSlippageExceeded() (gas: 257814)
+[PASS] test_RevertWhen_SwapZeroInput() (gas: 253442)
+[PASS] test_SwapInvariantKNeverDecreases() (gas: 255083)
+[PASS] test_SwapToken0ForToken1() (gas: 255220)
+[PASS] test_SwapToken1ForToken0() (gas: 255374)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 723.01ms (726.10ms CPU time)
+
+Ran 4 tests for test/ForkTest.t.sol:ForkTest
+[PASS] test_ImpersonateWhaleTransfer() (gas: 52128)
+[PASS] test_RollForkChangesBlock() (gas: 7351)
+Logs:
+  Block before: 19000000
+  Block after: 19000100
+
+[PASS] test_USDCTotalSupply() (gas: 16610)
+Logs:
+  USDC Total Supply: 22668875215 USDC
+
+[PASS] test_UniswapV2SwapWETHForUSDC() (gas: 135562)
+Logs:
+  Received USDC: 2556
+
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 1.88s (919.15ms CPU time)
+
+Ran 5 test suites in 2.62s (2.90s CPU time): 56 tests passed, 0 failed, 0 skipped (56 total tests)

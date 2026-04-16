@@ -1,0 +1,136 @@
+Warning: optimizer settings and `viaIR` have been disabled for accurate coverage reports.
+If you encounter "stack too deep" errors, consider using `--ir-minimum` which enables `viaIR` with minimum optimization resolving most of the errors
+Compiling 44 files with Solc 0.8.24
+Solc 0.8.24 finished in 1.77s
+Compiler run successful!
+Analysing contracts...
+Running tests...
+
+Ran 15 tests for test/LendingPoolTest.t.sol:LendingPoolTest
+[PASS] test_BorrowWithinLTV() (gas: 250377)
+[PASS] test_DepositCollateral() (gas: 55541)
+[PASS] test_DepositTokens() (gas: 116754)
+[PASS] test_HealthFactorAboveOne_WhenSafe() (gas: 252522)
+[PASS] test_InterestAccruesOverTime() (gas: 257142)
+[PASS] test_LiquidationAfterPriceDrop() (gas: 332211)
+[PASS] test_RepayFull() (gas: 254886)
+[PASS] test_RepayPartial() (gas: 270702)
+[PASS] test_RevertWhen_BorrowExceedsLTV() (gas: 220589)
+[PASS] test_RevertWhen_BorrowWithZeroCollateral() (gas: 189433)
+[PASS] test_RevertWhen_DepositZeroCollateral() (gas: 16743)
+[PASS] test_RevertWhen_LiquidateHealthyPosition() (gas: 286710)
+[PASS] test_RevertWhen_WithdrawMoreThanDeposited() (gas: 112959)
+[PASS] test_UtilizationRateUpdatesOnBorrow() (gas: 249003)
+[PASS] test_WithdrawTokens() (gas: 124112)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 6.94ms (34.36ms CPU time)
+
+Ran 2 tests for test/Counter.t.sol:CounterTest
+[PASS] testFuzz_SetNumber(uint256) (runs: 1000, μ: 28891, ~: 29289)
+[PASS] test_Increment() (gas: 28784)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 57.90ms (57.53ms CPU time)
+
+Ran 20 tests for test/ERC20Test.t.sol:ERC20Test
+[PASS] invariant_NoBalanceExceedsTotalSupply() (runs: 256, calls: 3840, reverts: 3144)
+
+╭----------+-------------------+-------+---------+----------╮
+| Contract | Selector          | Calls | Reverts | Discards |
++===========================================================+
+| TokenA   | approve           | 674   | 2       | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | mint              | 662   | 662     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | renounceOwnership | 655   | 655     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transfer          | 611   | 598     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferFrom      | 624   | 614     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferOwnership | 614   | 613     | 0        |
+╰----------+-------------------+-------+---------+----------╯
+
+[PASS] invariant_TotalSupplyUnchangedByTransfer() (runs: 256, calls: 3840, reverts: 3144)
+
+╭----------+-------------------+-------+---------+----------╮
+| Contract | Selector          | Calls | Reverts | Discards |
++===========================================================+
+| TokenA   | approve           | 674   | 2       | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | mint              | 662   | 662     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | renounceOwnership | 655   | 655     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transfer          | 611   | 598     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferFrom      | 624   | 614     | 0        |
+|----------+-------------------+-------+---------+----------|
+| TokenA   | transferOwnership | 614   | 613     | 0        |
+╰----------+-------------------+-------+---------+----------╯
+
+[PASS] testFuzz_Transfer(uint256) (runs: 1000, μ: 54277, ~: 53804)
+[PASS] test_Approve() (gas: 40977)
+[PASS] test_ApproveOverwritesPrevious() (gas: 46229)
+[PASS] test_Decimals() (gas: 5885)
+[PASS] test_InitialSupply() (gas: 7968)
+[PASS] test_MintByOwner() (gas: 50388)
+[PASS] test_Name() (gas: 13331)
+[PASS] test_RevertWhen_MintByNonOwner() (gas: 14560)
+[PASS] test_RevertWhen_MintExceedsMaxSupply() (gas: 19150)
+[PASS] test_RevertWhen_TransferExceedsBalance() (gas: 16957)
+[PASS] test_RevertWhen_TransferFromExceedsAllowance() (gas: 44742)
+[PASS] test_RevertWhen_TransferFromWithoutApprove() (gas: 19533)
+[PASS] test_Symbol() (gas: 13330)
+[PASS] test_Transfer() (gas: 47510)
+[PASS] test_TransferEmitsEvent() (gas: 46809)
+[PASS] test_TransferFrom() (gas: 80598)
+[PASS] test_TransferToSelf() (gas: 20787)
+[PASS] test_TransferZeroAmount() (gas: 24718)
+Suite result: ok. 20 passed; 0 failed; 0 skipped; finished in 340.12ms (851.35ms CPU time)
+
+Ran 15 tests for test/AMMTest.t.sol:AMMTest
+[PASS] testFuzz_SwapNeverDecreasesK(uint256) (runs: 1000, μ: 477763, ~: 477920)
+[PASS] test_AddInitialLiquidity() (gas: 234110)
+[PASS] test_AddSubsequentLiquidity() (gas: 311732)
+[PASS] test_GetAmountOut_CorrectFormula() (gas: 8586)
+[PASS] test_PriceAfterSwapChanges() (gas: 273237)
+[PASS] test_RemoveLiquidityFull() (gas: 266720)
+[PASS] test_RemoveLiquidityPartial() (gas: 290352)
+[PASS] test_RevertWhen_AddLiquidityZeroAmount() (gas: 82064)
+[PASS] test_RevertWhen_RemoveLiquiditySlippage() (gas: 269621)
+[PASS] test_RevertWhen_SwapInvalidToken() (gas: 237629)
+[PASS] test_RevertWhen_SwapSlippageExceeded() (gas: 273432)
+[PASS] test_RevertWhen_SwapZeroInput() (gas: 265512)
+[PASS] test_SwapInvariantKNeverDecreases() (gas: 272466)
+[PASS] test_SwapToken0ForToken1() (gas: 272968)
+[PASS] test_SwapToken1ForToken0() (gas: 273087)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 1.31s (1.33s CPU time)
+
+Ran 4 tests for test/ForkTest.t.sol:ForkTest
+[PASS] test_ImpersonateWhaleTransfer() (gas: 54218)
+[PASS] test_RollForkChangesBlock() (gas: 8276)
+[PASS] test_USDCTotalSupply() (gas: 17331)
+[PASS] test_UniswapV2SwapWETHForUSDC() (gas: 139545)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 1.69s (944.03ms CPU time)
+
+Ran 5 test suites in 1.69s (3.40s CPU time): 56 tests passed, 0 failed, 0 skipped (56 total tests)
+
+╭------------------------+------------------+------------------+-----------------+----------------╮
+| File                   | % Lines          | % Statements     | % Branches      | % Funcs        |
++=================================================================================================+
+| script/Counter.s.sol   | 0.00% (0/5)      | 0.00% (0/3)      | 100.00% (0/0)   | 0.00% (0/2)    |
+|------------------------+------------------+------------------+-----------------+----------------|
+| script/Deploy.s.sol    | 0.00% (0/20)     | 0.00% (0/25)     | 100.00% (0/0)   | 0.00% (0/1)    |
+|------------------------+------------------+------------------+-----------------+----------------|
+| src/AMM.sol            | 91.36% (74/81)   | 91.01% (81/89)   | 58.33% (28/48)  | 87.50% (7/8)   |
+|------------------------+------------------+------------------+-----------------+----------------|
+| src/Counter.sol        | 100.00% (4/4)    | 100.00% (2/2)    | 100.00% (0/0)   | 100.00% (2/2)  |
+|------------------------+------------------+------------------+-----------------+----------------|
+| src/LendingPool.sol    | 84.50% (109/129) | 83.11% (123/148) | 54.90% (28/51)  | 77.78% (14/18) |
+|------------------------+------------------+------------------+-----------------+----------------|
+| src/tokens/LPToken.sol | 100.00% (9/9)    | 100.00% (5/5)    | 50.00% (2/4)    | 100.00% (4/4)  |
+|------------------------+------------------+------------------+-----------------+----------------|
+| src/tokens/TokenA.sol  | 100.00% (5/5)    | 100.00% (3/3)    | 100.00% (2/2)   | 100.00% (2/2)  |
+|------------------------+------------------+------------------+-----------------+----------------|
+| src/tokens/TokenB.sol  | 40.00% (2/5)     | 33.33% (1/3)     | 0.00% (0/2)     | 50.00% (1/2)   |
+|------------------------+------------------+------------------+-----------------+----------------|
+| Total                  | 78.68% (203/258) | 77.34% (215/278) | 56.07% (60/107) | 76.92% (30/39) |
+╰------------------------+------------------+------------------+-----------------+----------------╯
